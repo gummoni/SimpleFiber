@@ -15,7 +15,8 @@ void fiber::dispatch() {
 		func* f = &(this->queue[this->ridx]);
 		if (NULL != f) {
 			f->invoke(f->arg);
-			*(this->jmpbuf) = 0;
+			f->invoke = NULL;
+			*this->jmpbuf = 0;
 		}
 		this->ridx = (this->ridx + 1) & 3;
 	}
