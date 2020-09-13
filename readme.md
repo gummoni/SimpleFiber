@@ -16,7 +16,7 @@ void main() {
 	sc->attach(f1);
 
 	//async execution
-	func* f = sc->invoke(hello_world, NULL);
+	func* f = f1->invoke(hello_world, NULL);
 	f->wait();
 
 	//scheduler mainloop
