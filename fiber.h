@@ -10,7 +10,9 @@ class fiber {
 public:
 	void invoke(void(*invoke)(void*), void* arg);
 	void dispatch();
+	void yield();
 	jmp_buf jmpbuf;
+	fiber* next;
 
 private:
 	func queue[4];

@@ -1,19 +1,21 @@
 #include "scheduler.h"
 
-int task_id;
-fiber* fibers[4];
-
-void scheduler_init() {
-	fibers[0] = new fiber();
-	fibers[1] = new fiber();
-	fibers[2] = new fiber();
-	fibers[3] = new fiber();
+void sc::attach(fiber* fiber)
+{
+	if (NULL == first) {
+		first = current = fiber;
+	}
+	else {
+		last->next = fiber;
+	}
+	last = fiber;
+	last->next = first;
 }
 
-void scheduler_start() {
-	while (true)
+void sc::start() {
+	for (;;)
 	{
-		fibers[task_id]->dispatch();
-		task_id = (task_id + 1) & 3;
+		current->dispatch();
+		current = current->next;
 	}
 }

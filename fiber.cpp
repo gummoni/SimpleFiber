@@ -21,3 +21,9 @@ void fiber::dispatch() {
 		this->ridx = (this->ridx + 1) & 3;
 	}
 }
+
+void fiber::yield() {
+	for (fiber* current = this->next; current != this; current = current->next) {
+		current->dispatch();
+	}
+}
