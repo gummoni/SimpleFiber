@@ -2,14 +2,24 @@
 #include "fiber.h"
 #include "scheduler.h"
 
-static sc* sc1;
+fiber* f1 = new fiber();
+fiber* f2 = new fiber();
+fiber* f3 = new fiber();
+fiber* f4 = new fiber();
 
-static void world(void) {
+static void foobar(void* arg) {
+	printf("foo bar\n");
+}
+
+static void world() {
 	int retry = 3;
+
 	while (0 < retry--) {
 		printf("world:%d\n", retry);
-		sc1->current->yield();
+		sc->yield();
 	}
+	func* func = f1->invoke(foobar, NULL);
+	func->wait();
 }
 
 static void hello(void* arg) {
@@ -26,19 +36,12 @@ static void hello(void* arg) {
 
 int main(void) {
 
-	sc1 = new sc();
-
-	fiber* f1 = new fiber();
-	fiber* f2 = new fiber();
-	fiber* f3 = new fiber();
-	fiber* f4 = new fiber();
-
-	sc1->attach(f1);
-	sc1->attach(f2);
-	sc1->attach(f3);
-	sc1->attach(f4);
+	sc->attach(f1);
+	sc->attach(f2);
+	sc->attach(f3);
+	sc->attach(f4);
 	f1->invoke(hello, NULL);
-	sc1->start();
+	sc->start();
 
 	//scheduler_init();
 	//fibers[0]->invoke(hello, NULL);

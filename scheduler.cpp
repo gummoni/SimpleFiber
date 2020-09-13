@@ -1,6 +1,6 @@
 #include "scheduler.h"
 
-void sc::attach(fiber* fiber)
+void scheduler::attach(fiber* fiber)
 {
 	if (NULL == first) {
 		first = current = fiber;
@@ -12,10 +12,16 @@ void sc::attach(fiber* fiber)
 	last->next = first;
 }
 
-void sc::start() {
+void scheduler::start() {
 	for (;;)
 	{
 		current->dispatch();
 		current = current->next;
 	}
 }
+
+void scheduler::yield() {
+	current->yield();
+}
+
+scheduler* sc = new scheduler();

@@ -1,22 +1,25 @@
 #pragma once
 #include "fiber.h"
 
-class sc {
+class scheduler {
 public:
-	sc() {
+	scheduler() {
 		first = NULL;
 		current = NULL;
 		last = NULL;
 	}
 
-	~sc() {
+	~scheduler() {
 	}
 
 	void start();
 	void attach(fiber* fiber);
+	void yield();
 	fiber* current;
 
 private:
 	fiber* first;
 	fiber* last;
 };
+
+extern scheduler* sc;

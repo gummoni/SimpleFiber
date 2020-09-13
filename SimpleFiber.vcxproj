@@ -141,12 +141,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="fiber.h" />
+    <ClInclude Include="func.h" />
     <ClInclude Include="scheduler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fiber.cpp" />
+    <ClCompile Include="func.cpp" />
     <ClCompile Include="hello.cpp" />
     <ClCompile Include="scheduler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="readme.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

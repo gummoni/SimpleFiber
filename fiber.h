@@ -1,21 +1,19 @@
 #pragma once
+#include "func.h"
 #include <setjmp.h>
-
-typedef struct func {
-	void (*invoke)(void* arg);
-	void* arg;
-} func;
 
 class fiber {
 public:
-	void invoke(void(*invoke)(void*), void* arg);
+	func* invoke(void(*invoke)(void*), void* arg);
 	void dispatch();
 	void yield();
 	jmp_buf jmpbuf;
 	fiber* next;
 
 private:
+	func dummy;
 	func queue[4];
+	bool is_busy;
 	int ridx;
 	int widx;
 };
